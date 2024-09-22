@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project 
-  DefaultTargets="BuildTools;Restore;Build"
+  DefaultTargets="BuildTools;Restore;Build;Packaging"
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SolutionPath>$(MSBuildThisFileDirectory)Mile.UniCrt.sln</SolutionPath>
@@ -74,5 +74,12 @@
       Targets="Rebuild"
       StopOnFirstFailure="True"
       Properties="PreferredToolArchitecture=x64" />
+  </Target>
+  <Target Name="Packaging">
+    <MSBuild
+      Projects="$(MSBuildThisFileDirectory)Mile.Project.Windows\Mile.Project.NuGetPackaging.proj"
+      Targets="Restore;Build"
+      StopOnFirstFailure="True"
+      Properties="PreferredToolArchitecture=x64;NuspecFile=$(MSBuildThisFileDirectory)Mile.UniCrt.NuGet\Mile.Windows.UniCrt.nuspec" />
   </Target>
 </Project>

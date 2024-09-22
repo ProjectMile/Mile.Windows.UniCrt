@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  PROJECT:   Mouri Internal Library Essentials
+  FILE:      Mile.Windows.UniCrt.nuspec
+  PURPOSE:   NuGet package definition for Mile.Windows.UniCrt
+
+  LICENSE:   The MIT License
+
+  MAINTAINER: MouriNaruto (Kenji.Mouri@outlook.com)
+-->
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Mile.Windows.UniCrt</id>
+    <version>1.0.0.0</version>
+    <description>The Windows Universal C Runtime derivative intended for the lightweight applications</description>
+    <authors>Kenji Mouri</authors>
+    <projectUrl>https://github.com/ProjectMile/Mile.Windows.UniCrt</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">License.md</license>
+    <readme>ReadMe.md</readme>
+    <repository type="git" url="https://github.com/ProjectMile/Mile.Windows.UniCrt.git" />
+  </metadata>
+  <files>
+  
+    <file src="..\Mile.UniCrt\**\*.*" target="build\native" exclude="..\Mile.UniCrt\.gitignore" />
+
+    <file src="Mile.Windows.UniCrt.props" target="build\native" />
+
+    <file src="..\ReadMe.md" target="." />
+    <file src="..\License.md" target="." />
+    <file src="..\ReleaseNotes.md" target="." />
+
+  </files>
+</package>

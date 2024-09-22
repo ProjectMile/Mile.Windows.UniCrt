@@ -14,6 +14,7 @@ applications.
 - Provide the disabling runtime debugging feature support which can make people
   build their debug binaries which directly depends on ucrtbase.dll instead of
   ucrtbased.dll.
+- Provide NuGet package.
 
 ## Available MSBuild project options
 
@@ -28,6 +29,13 @@ ucrtbase.dll instead of ucrtbased.dll, please set the following option.
 
 ```
 <MileUniCrtDisableRuntimeDebuggingFeature>true</MileUniCrtDisableRuntimeDebuggingFeature>
+```
+
+If you want to disable all features from Mile.Windows.UniCrt, please set the
+following option.
+
+```
+<MileUniCrtDisableAllFeatures>true</MileUniCrtDisableAllFeatures>
 ```
 
 ## Why named UniCrt?

@@ -14,7 +14,7 @@
     <MileUniCrtOutputPath Condition="'$(MileUniCrtOutputPath)' == ''">$(IntDir)Mile.UniCrt\</MileUniCrtOutputPath>
   </PropertyGroup>
   <PropertyGroup>
-    <LibraryPath>$(IntDir);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(MileUniCrtOutputPath);$(LibraryPath)</LibraryPath>
     <VC_LibraryPath_x86 Condition=" '$(VC_LibraryPath_x86)' != ''">$(MileUniCrtOutputPath);$(VC_LibraryPath_x86)</VC_LibraryPath_x86>
     <VC_LibraryPath_x64 Condition=" '$(VC_LibraryPath_x64)' != ''">$(MileUniCrtOutputPath);$(VC_LibraryPath_x64)</VC_LibraryPath_x64>
     <VC_LibraryPath_ARM64 Condition=" '$(VC_LibraryPath_ARM64)' != ''">$(MileUniCrtOutputPath);$(VC_LibraryPath_ARM64)</VC_LibraryPath_ARM64>

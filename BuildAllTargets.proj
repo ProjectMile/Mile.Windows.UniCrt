@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project 
-  DefaultTargets="Restore;Build"
+  DefaultTargets="BuildTools;Restore;Build"
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SolutionPath>$(MSBuildThisFileDirectory)*.sln</SolutionPath>
+    <SolutionPath>$(MSBuildThisFileDirectory)Mile.UniCrt.sln</SolutionPath>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionPath)">
@@ -30,6 +30,13 @@
       <AdditionalProperties>NuspecFile=$(MSBuildThisFileDirectory)SampleProject\SampleProject.nuspec</AdditionalProperties>   
     </PackagingProjectReference> -->
   </ItemGroup>
+  <Target Name="BuildTools" >
+    <MSBuild
+      Projects="$(MSBuildThisFileDirectory)Mile.UniCrt.sln"
+      Targets="Restore;Build"
+      StopOnFirstFailure="True"
+      Properties="PreferredToolArchitecture=x64;Configuration=Release;Platform=Any CPU" />
+  </Target>
   <Target Name="Restore" >
     <MSBuild
       Projects="@(ProjectReference)"

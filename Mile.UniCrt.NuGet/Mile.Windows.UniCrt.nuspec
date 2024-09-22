@@ -11,7 +11,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Mile.Windows.UniCrt</id>
-    <version>1.0.0.0</version>
+    <version>1.0.185.0</version>
     <description>The Windows Universal C Runtime derivative intended for the lightweight applications</description>
     <authors>Kenji Mouri</authors>
     <projectUrl>https://github.com/ProjectMile/Mile.Windows.UniCrt</projectUrl>

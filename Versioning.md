@@ -11,8 +11,8 @@ This document applies to all versions of Mile.Windows.UniCrt.
 
 ## The rule for build and revision number
 
-The build number is the number of days since September 22, 2024 because the first
-version of Mile.Windows.UniCrt is created and published on that day.
+The build number is the number of days since March 21, 2024 because this is the
+day I started to find the way to rethink the Hybrid CRT and VC-LTL 5.x.
 
 The revision number is the number of releases releases in the day corresponding
 to the build number, and it counts from zero. So the first revision is 0 and 

@@ -9,6 +9,6 @@
 ## 
 
 ##
-## Ignore Mile.UniversalCRT.Build.Tasks.dll which convenience for debugging.
+## Ignore Mile.UniCrt.Build.Tasks.dll which convenience for debugging.
 ## 
-Mile.UniversalCRT.Build.Tasks.dll
+Mile.UniCrt.Build.Tasks.dll

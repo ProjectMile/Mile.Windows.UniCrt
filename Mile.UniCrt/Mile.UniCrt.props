@@ -42,7 +42,7 @@
       <ClCompile Include="$(MSBuildThisFileDirectory)Mile.UniCrt.OriginalVCRuntimeWrapper.cpp" />
     </ItemGroup>
   </Target>
-  <Target Name="MileUniCrtGenerateLibraries" AfterTargets="BeforeLink" BeforeTargets="Link">
+  <Target Name="MileUniCrtGenerateLibraries" BeforeTargets="BeforeClCompile">
     <RemoveDir Directories="$(MileUniCrtIntermediatePath);$(MileUniCrtOutputPath);" />
     <MakeDir Directories="$(MileUniCrtIntermediatePath);$(MileUniCrtOutputPath);"/>
     <SimplifiedBaseDefinitionGenerator

@@ -86,7 +86,7 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
                 SortedSet<string> ExtendedSymbols =
                     ImportStringListFromListFile(
                         string.Format(
-                            @"{0}\Runtime\10.0.19041.1\{1}\exports.txt",
+                            @"{0}\Runtime\10.0.19041.1\{1}\ucrtbase_exports.txt",
                             ReferencesRootPath,
                             Platform));
                 foreach (string Symbol in ExtendedSymbols)
@@ -109,7 +109,7 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
 
                 GenerateDefinitionFile(
                     string.Format(
-                        @"{0}\Mile.UniversalCRT.Wrapper.{1}.Release.def",
+                        @"{0}\Mile.UniCrt.Wrapper.{1}.Release.def",
                         WrapperRootPath,
                         Platform),
                     string.Empty,
@@ -117,7 +117,7 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
 
                 GenerateDefinitionFile(
                     string.Format(
-                        @"{0}\Mile.UniversalCRT.Wrapper.{1}.Debug.def",
+                        @"{0}\Mile.UniCrt.Wrapper.{1}.Debug.def",
                         WrapperRootPath,
                         Platform),
                     string.Empty,

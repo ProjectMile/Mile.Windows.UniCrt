@@ -19,6 +19,11 @@
     <VC_LibraryPath_x64 Condition=" '$(VC_LibraryPath_x64)' != ''">$(MileUniCrtOutputPath);$(VC_LibraryPath_x64)</VC_LibraryPath_x64>
     <VC_LibraryPath_ARM64 Condition=" '$(VC_LibraryPath_ARM64)' != ''">$(MileUniCrtOutputPath);$(VC_LibraryPath_ARM64)</VC_LibraryPath_ARM64>
   </PropertyGroup>
+  <Target Name="MileUniCrtBuildWrappers" BeforeTargets="BeforeClCompile">
+    <ItemGroup>
+      <ClCompile Include="$(MSBuildThisFileDirectory)Mile.UniCrt.OriginalVCRuntimeWrapper.cpp" />
+    </ItemGroup>
+  </Target>
   <Target Name="MileUniCrtGenerateLibraries" AfterTargets="BeforeLink" BeforeTargets="Link">
     <RemoveDir Directories="$(MileUniCrtOutputPath);" />
     <MakeDir Directories="$(MileUniCrtOutputPath);"/>

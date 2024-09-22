@@ -1,6 +1,6 @@
 ﻿# Mile.Windows.UniCrt Release Notes
 
-**Mile.Windows.UniCrt 1.0.185.0**
+**Mile.Windows.UniCrt 1.0.186.0**
 
 - Initial release.
 - Provide x86, x64 and ARM64 targets support.

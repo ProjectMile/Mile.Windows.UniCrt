@@ -9,6 +9,16 @@ applications.
 
 - Provide x86, x64 and ARM64 targets support.
 - Provide ARM64X and ARM64EC modes support for ARM64 targets.
+- Provide the Simplified Base support which can make people build their binaries
+  which directly depends on ucrtbase.dll instead of api-ms-win-crt-*.dll.
+
+## Available MSBuild project options
+
+If you don't want to use the simplified base, please set the following option.
+
+```
+<MileUniCrtEnableSimplifiedBase>false</MileUniCrtEnableSimplifiedBase>
+```
 
 ## Why named UniCrt?
 

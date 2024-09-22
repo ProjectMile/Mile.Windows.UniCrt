@@ -13,6 +13,7 @@
     <MileProjectProductName>Mile.Windows.UniCrt</MileProjectProductName>
     <MileProjectVersion>1.0.$([System.DateTime]::Today.Subtract($([System.DateTime]::Parse('2024-03-21'))).TotalDays).0</MileProjectVersion>
     <MileProjectVersionTag Condition="false">Alpha 1</MileProjectVersionTag>
+    <MileUniCrtEnableSimplifiedBase>false</MileUniCrtEnableSimplifiedBase>
   </PropertyGroup>
   <Import Project="..\Mile.Project.Windows\Mile.Project.Platform.x86.props" />
   <Import Project="..\Mile.Project.Windows\Mile.Project.Platform.x64.props" />

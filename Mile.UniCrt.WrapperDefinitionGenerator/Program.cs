@@ -94,8 +94,7 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
                     if (!string.IsNullOrWhiteSpace(Symbol) &&
                         !Symbol.StartsWith("_o_") &&
                         !Symbol.StartsWith("?") &&
-                        !Symbol.StartsWith("$") &&
-                        !Symbol.StartsWith("__dcrt_"))
+                        !Symbol.StartsWith("$"))
                     {
                         string FinalSymbol = Symbol;
                         if (Symbol.Contains("@"))

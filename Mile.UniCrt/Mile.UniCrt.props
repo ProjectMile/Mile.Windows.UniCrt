@@ -17,6 +17,8 @@
     <MileUniCrtLibraryTargetMachine Condition="('$(MileUniCrtLibraryTargetMachine)' == '') and ('$(Platform)' == 'x64')">MachineX64</MileUniCrtLibraryTargetMachine>
     <MileUniCrtLibraryTargetMachine Condition="('$(MileUniCrtLibraryTargetMachine)' == '') and ('$(PlatformShortName)' == 'ARM64')">MachineARM64X</MileUniCrtLibraryTargetMachine>
     <MileUniCrtEnableSimplifiedBase Condition="'$(MileUniCrtEnableSimplifiedBase)' == ''">true</MileUniCrtEnableSimplifiedBase>
+    <MileUniCrtDisableRuntimeDebuggingFeature Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == ''">false</MileUniCrtDisableRuntimeDebuggingFeature>
+    <MileUniCrtEnableSimplifiedBase Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == 'true'">true</MileUniCrtEnableSimplifiedBase>
   </PropertyGroup>
   <PropertyGroup>
     <LibraryPath>$(MileUniCrtOutputPath);$(LibraryPath)</LibraryPath>
@@ -32,6 +34,9 @@
     TaskName="Mile.UniCrt.Build.Tasks.SimplifiedBaseDefinitionGenerator"
     AssemblyFile="$(MSBuildThisFileDirectory)Mile.UniCrt.Build.Tasks.dll"/>
   <Target Name="MileUniCrtBuildWrappers" BeforeTargets="BeforeClCompile">
+    <ItemGroup Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == 'true'">
+      <ClCompile Include="$(MSBuildThisFileDirectory)Mile.UniCrt.RuntimeDebuggingFeatureWrapper.cpp" />
+    </ItemGroup>
     <ItemGroup>
       <ClCompile Include="$(MSBuildThisFileDirectory)Mile.UniCrt.OriginalVCRuntimeWrapper.cpp" />
     </ItemGroup>
@@ -65,6 +70,12 @@
       SourceFiles="$(MileUniCrtOutputPath)ucrt.lib"
       DestinationFiles="$(MileUniCrtOutputPath)libucrt.lib" />
     <Copy
+      Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == 'true'"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtOutputPath)ucrt.lib"
+      DestinationFiles="$(MileUniCrtOutputPath)ucrtd.lib" />
+    <Copy
+      Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true'"
       OverwriteReadOnlyFiles="true"
       SourceFiles="$(MileUniCrtBaseLibraryPath)ucrtd.lib"
       DestinationFiles="$(MileUniCrtOutputPath)ucrtd.lib" />

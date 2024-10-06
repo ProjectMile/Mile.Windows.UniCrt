@@ -24,7 +24,7 @@
   
     <file src="..\Mile.UniCrt\**\*.*" target="build\native" exclude="..\Mile.UniCrt\.gitignore" />
 
-    <file src="Mile.Windows.UniCrt.props" target="build\native" />
+    <file src="Mile.Windows.UniCrt.targets" target="build\native" />
 
     <file src="..\ReadMe.md" target="." />
     <file src="..\License.md" target="." />

@@ -20,7 +20,6 @@
   <Import Project="..\Mile.Project.Windows\Mile.Project.Platform.ARM64EC.props" />
   <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.Default.props" />
   <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.props" />
-  <Import Project="..\Mile.UniCrt\Mile.UniCrt.props" />
   <PropertyGroup Condition="'$(Platform)'=='ARM64'">
     <BuildAsX>true</BuildAsX>
   </PropertyGroup>
@@ -48,4 +47,5 @@
     <ClCompile Include="Mile.UniCrt.Wrapper.cpp" />
   </ItemGroup>
   <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.targets" />
+  <Import Project="..\Mile.UniCrt\Mile.UniCrt.targets" />
 </Project>

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
    PROJECT:   Mouri Internal Library Essentials
-   FILE:      Mile.UniCrt.props
-   PURPOSE:   MSBuild props file for Mile.Windows.UniCrt
+   FILE:      Mile.UniCrt.targets
+   PURPOSE:   MSBuild targets file for Mile.Windows.UniCrt
 
    LICENSE:   The MIT License
 
@@ -10,7 +10,6 @@
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ForceImportAfterCppProps>$(MileUniCrtBackupedForceImportAfterCppProps)</ForceImportAfterCppProps>
     <MileUniCrtBaseLibraryPath Condition="'$(MileUniCrtBaseLibraryPath)' == '' and '$(WindowsSdkDir)' != ''">$(WindowsSdkDir)lib\$(TargetPlatformVersion)\ucrt\$(PlatformShortName)\</MileUniCrtBaseLibraryPath>
     <MileUniCrtIntermediatePath Condition="'$(MileUniCrtIntermediatePath)' == ''">$(IntDir)Mile.UniCrt\Intermediate\</MileUniCrtIntermediatePath>
     <MileUniCrtOutputPath Condition="'$(MileUniCrtOutputPath)' == ''">$(IntDir)Mile.UniCrt\</MileUniCrtOutputPath>

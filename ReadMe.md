@@ -1,5 +1,7 @@
 ﻿# Mile.Windows.UniCrt
 
+[![NuGet Package](https://img.shields.io/nuget/vpre/Mile.Windows.UniCrt)](https://www.nuget.org/packages/Mile.Windows.UniCrt)
+
 The Windows Universal C Runtime derivative intended for the lightweight
 applications.
 

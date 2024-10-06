@@ -1,5 +1,9 @@
 ﻿# Mile.Windows.UniCrt Release Notes
 
+**Mile.Windows.UniCrt 1.0.199.0**
+
+- Remove the dependency of ForceImportAfterCppProps feature.
+
 **Mile.Windows.UniCrt 1.0.187.0**
 
 - Fix NuGet package is not applied issue.

@@ -1,5 +1,18 @@
 ﻿# Mile.Windows.UniCrt Release Notes
 
+**Mile.Windows.UniCrt 1.1.274.0**
+
+- Provide the vcruntime140(d).dll and vcruntime140_1(d).dll to ucrtbase(d).dll
+  wrapper which can make people build more smaller binaries. But it will cause
+  x64 binaries only support Windows 10 Build 19041 or later.
+- Remove MileUniCrtEnableSimplifiedBase dependency for
+  MileUniCrtDisableRuntimeDebuggingFeature because may users want to disable
+- runtime debugging feature but with the standard Windows Universal C Runtime
+- imports.
+- Update Mile.Project.Helpers to 1.0.632.
+- Update dependency Microsoft.Build.Utilities.Core and Microsoft.Build.Framework
+  to 17.12.6. (Contributed by Malus-risus.)
+
 **Mile.Windows.UniCrt 1.0.199.0**
 
 - Remove the dependency of ForceImportAfterCppProps feature.

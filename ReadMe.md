@@ -59,4 +59,5 @@ you will know UniCrt is Microsoft's internal alias name for Universal C Runtime.
 ## Documents
 
 - [License](License.md)
+- [Release Notes](ReleaseNotes.md)
 - [Versioning](Versioning.md)

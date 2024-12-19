@@ -18,7 +18,6 @@
     <MileUniCrtLibraryTargetMachine Condition="('$(MileUniCrtLibraryTargetMachine)' == '') and ('$(PlatformShortName)' == 'ARM64')">MachineARM64X</MileUniCrtLibraryTargetMachine>
     <MileUniCrtEnableSimplifiedBase Condition="'$(MileUniCrtEnableSimplifiedBase)' == ''">true</MileUniCrtEnableSimplifiedBase>
     <MileUniCrtDisableRuntimeDebuggingFeature Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == ''">false</MileUniCrtDisableRuntimeDebuggingFeature>
-    <MileUniCrtEnableSimplifiedBase Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == 'true'">true</MileUniCrtEnableSimplifiedBase>
   </PropertyGroup>
   <PropertyGroup>
     <LibraryPath>$(MileUniCrtOutputPath);$(LibraryPath)</LibraryPath>

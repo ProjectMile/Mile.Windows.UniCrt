@@ -5,8 +5,6 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mile.UniCrt.WrapperDefinitionGenerator", "Mile.UniCrt.WrapperDefinitionGenerator\Mile.UniCrt.WrapperDefinitionGenerator.csproj", "{C4F5763C-BC80-4A0A-B640-2EEB74B3DEA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mile.UniCrt.RefreshPackageVersion", "Mile.UniCrt.RefreshPackageVersion\Mile.UniCrt.RefreshPackageVersion.csproj", "{E2BAC260-F6EB-44BF-A595-9D5799FF9A63}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{C4F5763C-BC80-4A0A-B640-2EEB74B3DEA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4F5763C-BC80-4A0A-B640-2EEB74B3DEA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4F5763C-BC80-4A0A-B640-2EEB74B3DEA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2BAC260-F6EB-44BF-A595-9D5799FF9A63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2BAC260-F6EB-44BF-A595-9D5799FF9A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2BAC260-F6EB-44BF-A595-9D5799FF9A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2BAC260-F6EB-44BF-A595-9D5799FF9A63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

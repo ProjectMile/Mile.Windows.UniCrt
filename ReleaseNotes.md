@@ -7,8 +7,8 @@
   x64 binaries only support Windows 10 Build 19041 or later.
 - Remove MileUniCrtEnableSimplifiedBase dependency for
   MileUniCrtDisableRuntimeDebuggingFeature because may users want to disable
-- runtime debugging feature but with the standard Windows Universal C Runtime
-- imports.
+  runtime debugging feature but with the standard Windows Universal C Runtime
+  imports.
 - Update Mile.Project.Helpers to 1.0.632.
 - Update dependency Microsoft.Build.Utilities.Core and Microsoft.Build.Framework
   to 17.12.6. (Contributed by Malus-risus.)

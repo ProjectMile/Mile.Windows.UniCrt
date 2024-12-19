@@ -38,9 +38,21 @@ namespace Mile.UniCrt.Build.Tasks
                             {
                                 foreach (string Symbol in Category.Value)
                                 {
+                                    if (Symbol.Contains("__telemetry_main_") ||
+                                        Symbol.Contains("__vcrt_"))
+                                    {
+                                        continue;
+                                    }
                                     Symbols.Add(Symbol);
                                 }
                             }
+                        }
+                        if (TargetPlatform == "x64")
+                        {
+                            Symbols.Add("_GetImageBase");
+                            Symbols.Add("_GetThrowImageBase");
+                            Symbols.Add("_SetImageBase");
+                            Symbols.Add("_SetThrowImageBase");
                         }
                     }
                     Utilities.GenerateDefinitionFile(
@@ -66,12 +78,20 @@ namespace Mile.UniCrt.Build.Tasks
                             {
                                 foreach (string Symbol in Category.Value)
                                 {
+                                    if (Symbol.Contains("__telemetry_main_") ||
+                                        Symbol.Contains("__vcrt_"))
+                                    {
+                                        continue;
+                                    }
                                     Symbols.Add(Symbol);
                                 }
                             }
                         }
+                        Symbols.Add("_GetImageBase");
+                        Symbols.Add("_GetThrowImageBase");
+                        Symbols.Add("_SetImageBase");
+                        Symbols.Add("_SetThrowImageBase");
                     }
-
                     Utilities.GenerateDefinitionFile(
                        string.Format(
                            @"{0}\Mile.UniCrt.VcRuntimeBase.Arm64EC.def",
@@ -101,9 +121,21 @@ namespace Mile.UniCrt.Build.Tasks
                             {
                                 foreach (string Symbol in Category.Value)
                                 {
+                                    if (Symbol.Contains("__telemetry_main_") ||
+                                        Symbol.Contains("__vcrt_"))
+                                    {
+                                        continue;
+                                    }
                                     Symbols.Add(Symbol);
                                 }
                             }
+                        }
+                        if (TargetPlatform == "x64")
+                        {
+                            Symbols.Add("_GetImageBase");
+                            Symbols.Add("_GetThrowImageBase");
+                            Symbols.Add("_SetImageBase");
+                            Symbols.Add("_SetThrowImageBase");
                         }
                     }
                     Utilities.GenerateDefinitionFile(
@@ -129,12 +161,20 @@ namespace Mile.UniCrt.Build.Tasks
                             {
                                 foreach (string Symbol in Category.Value)
                                 {
+                                    if (Symbol.Contains("_SetThrowImageBase") ||
+                                        Symbol.Contains("__vcrt_"))
+                                    {
+                                        continue;
+                                    }
                                     Symbols.Add(Symbol);
                                 }
                             }
                         }
+                        Symbols.Add("_GetImageBase");
+                        Symbols.Add("_GetThrowImageBase");
+                        Symbols.Add("_SetImageBase");
+                        Symbols.Add("_SetThrowImageBase");
                     }
-
                     Utilities.GenerateDefinitionFile(
                        string.Format(
                            @"{0}\Mile.UniCrt.VcRuntimeBaseDebug.Arm64EC.def",

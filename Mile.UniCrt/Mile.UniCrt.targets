@@ -11,6 +11,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MileUniCrtBaseLibraryPath Condition="'$(MileUniCrtBaseLibraryPath)' == '' and '$(WindowsSdkDir)' != ''">$(WindowsSdkDir)lib\$(TargetPlatformVersion)\ucrt\$(PlatformShortName)\</MileUniCrtBaseLibraryPath>
+    <MileUniCrtVcRuntimeLibraryPath Condition="'$(MileUniCrtVcRuntimeLibraryPath)' == '' and '$(VCToolsInstallDir)' != ''">$(VCToolsInstallDir)lib\$(PlatformShortName)\</MileUniCrtVcRuntimeLibraryPath>
+    <MileUniCrtVcRuntimeLibraryPath Condition="'$(MileUniCrtVcRuntimeLibraryPath)' == '' and '$(VCInstallDir)' != '' and '$(Platform)' == 'Win32'">$(VCInstallDir)lib\</MileUniCrtVcRuntimeLibraryPath>
+    <MileUniCrtVcRuntimeLibraryPath Condition="'$(MileUniCrtVcRuntimeLibraryPath)' == '' and '$(VCInstallDir)' != ''">$(VCInstallDir)lib\$(PlatformShortName)\</MileUniCrtVcRuntimeLibraryPath>
     <MileUniCrtIntermediatePath Condition="'$(MileUniCrtIntermediatePath)' == ''">$(IntDir)Mile.UniCrt\Intermediate\</MileUniCrtIntermediatePath>
     <MileUniCrtOutputPath Condition="'$(MileUniCrtOutputPath)' == ''">$(IntDir)Mile.UniCrt\</MileUniCrtOutputPath>
     <MileUniCrtLibraryTargetMachine Condition="('$(MileUniCrtLibraryTargetMachine)' == '') and ('$(Platform)' == 'Win32')">MachineX86</MileUniCrtLibraryTargetMachine>
@@ -18,6 +21,7 @@
     <MileUniCrtLibraryTargetMachine Condition="('$(MileUniCrtLibraryTargetMachine)' == '') and ('$(PlatformShortName)' == 'ARM64')">MachineARM64X</MileUniCrtLibraryTargetMachine>
     <MileUniCrtEnableSimplifiedBase Condition="'$(MileUniCrtEnableSimplifiedBase)' == ''">true</MileUniCrtEnableSimplifiedBase>
     <MileUniCrtDisableRuntimeDebuggingFeature Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == ''">false</MileUniCrtDisableRuntimeDebuggingFeature>
+    <MileUniCrtEnableVcRuntimeWrapper Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == ''">true</MileUniCrtEnableVcRuntimeWrapper>
   </PropertyGroup>
   <PropertyGroup>
     <LibraryPath>$(MileUniCrtOutputPath);$(LibraryPath)</LibraryPath>
@@ -28,9 +32,22 @@
   <PropertyGroup>
     <MileUniCrt_SimplifiedBaseSource>/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.SimplifiedBase.def;</MileUniCrt_SimplifiedBaseSource>
     <MileUniCrt_SimplifiedBaseSource Condition="'$(PlatformShortName)' == 'ARM64'">/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.SimplifiedBase.Arm64EC.def;/DEFARM64NATIVE:$(MileUniCrtIntermediatePath)Mile.UniCrt.SimplifiedBase.def;</MileUniCrt_SimplifiedBaseSource>
+    <MileUniCrt_VcRuntimeBaseSource>/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBase.def;</MileUniCrt_VcRuntimeBaseSource>
+    <MileUniCrt_VcRuntimeBaseSource Condition="'$(PlatformShortName)' == 'ARM64'">/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBase.Arm64EC.def;/DEFARM64NATIVE:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBase.def;</MileUniCrt_VcRuntimeBaseSource>
+    <MileUniCrt_VcRuntimeBaseDebugSource>/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBaseDebug.def;</MileUniCrt_VcRuntimeBaseDebugSource>
+    <MileUniCrt_VcRuntimeBaseDebugSource Condition="'$(PlatformShortName)' == 'ARM64'">/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBaseDebug.Arm64EC.def;/DEFARM64NATIVE:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBaseDebug.def;</MileUniCrt_VcRuntimeBaseDebugSource>
+    <MileUniCrt_VcRuntimeExtendedSource Condition="'$(PlatformShortName)' == 'x64'">amd64\c11_atomic_support.obj;amd64\locks.obj;amd64\softmemtag.obj;amd64\telemetry.obj;amd64\winapi_thunks.obj;amd64\threads.obj;</MileUniCrt_VcRuntimeExtendedSource>
+    <MileUniCrt_VcRuntimeExtendedSource Condition="'$(PlatformShortName)' == 'x86'">x86\c11_atomic_support.obj;x86\locks.obj;x86\telemetry.obj;x86\winapi_thunks.obj;x86\threads.obj;</MileUniCrt_VcRuntimeExtendedSource>
+    <MileUniCrt_VcRuntimeExtendedSource Condition="'$(PlatformShortName)' == 'ARM64'">arm64\c11_atomic_support.obj;arm64\locks.obj;arm64\softmemtag.obj;arm64\telemetry.obj;arm64\winapi_thunks.obj;arm64\threads.obj;arm64ec\c11_atomic_support.obj;arm64ec\locks.obj;arm64ec\softmemtag.obj;arm64ec\telemetry.obj;arm64ec\winapi_thunks.obj;arm64ec\threads.obj;</MileUniCrt_VcRuntimeExtendedSource>
   </PropertyGroup>
   <UsingTask
     TaskName="Mile.UniCrt.Build.Tasks.SimplifiedBaseDefinitionGenerator"
+    AssemblyFile="$(MSBuildThisFileDirectory)Mile.UniCrt.Build.Tasks.dll"/>
+  <UsingTask
+      TaskName="Mile.UniCrt.Build.Tasks.VcRuntimeBaseDefinitionGenerator"
+      AssemblyFile="$(MSBuildThisFileDirectory)Mile.UniCrt.Build.Tasks.dll"/>
+  <UsingTask
+    TaskName="Mile.UniCrt.Build.Tasks.LibraryExtractListGenerator"
     AssemblyFile="$(MSBuildThisFileDirectory)Mile.UniCrt.Build.Tasks.dll"/>
   <Target Name="MileUniCrtBuildWrappers" BeforeTargets="BeforeClCompile">
     <ItemGroup Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == 'true'">
@@ -82,5 +99,149 @@
       OverwriteReadOnlyFiles="true"
       SourceFiles="$(MileUniCrtOutputPath)ucrtd.lib"
       DestinationFiles="$(MileUniCrtOutputPath)libucrtd.lib" />
+    <VcRuntimeBaseDefinitionGenerator
+      Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
+      BaseLibraryPath="$(MileUniCrtVcRuntimeLibraryPath)"
+      TargetPlatform="$(PlatformShortName)"
+      OutputLibraryPath="$(MileUniCrtIntermediatePath)" />
+    <LIB
+      Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrt_VcRuntimeBaseSource)"
+      OutputFile="$(MileUniCrtOutputPath)vcruntime.lib" />
+    <LIB
+      Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrt_VcRuntimeBaseDebugSource)"
+      OutputFile="$(MileUniCrtOutputPath)vcruntimed.lib" />
+    <RemoveDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x86')"
+      Directories="$(MileUniCrtIntermediatePath)x86Release;" />
+    <MakeDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x86')"
+      Directories="$(MileUniCrtIntermediatePath)x86Release;"/>
+    <RemoveDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x64')"
+      Directories="$(MileUniCrtIntermediatePath)amd64Release;" />
+    <MakeDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x64')"
+      Directories="$(MileUniCrtIntermediatePath)amd64Release;"/>
+    <RemoveDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'ARM64')"
+      Directories="$(MileUniCrtIntermediatePath)arm64Release;$(MileUniCrtIntermediatePath)arm64ecRelease;" />
+    <MakeDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'ARM64')"
+      Directories="$(MileUniCrtIntermediatePath)arm64Release;$(MileUniCrtIntermediatePath)arm64ecRelease;"/>
+    <LibraryExtractListGenerator
+      Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
+      TargetPlatform="$(PlatformShortName)"
+      InputLibraryPath="$(MileUniCrtVcRuntimeLibraryPath)libvcruntime.lib"
+      FilterList="$(MileUniCrt_VcRuntimeExtendedSource)">
+      <Output TaskParameter="ExtractList" ItemName="MileUniCrt_VcRuntimeObjectExtractList"/>
+    </LibraryExtractListGenerator>
+    <LIB
+      Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrtVcRuntimeLibraryPath)libvcruntime.lib;/EXTRACT:%(MileUniCrt_VcRuntimeObjectExtractList.Identity);"
+      OutputFile="$(MileUniCrtIntermediatePath)$([System.IO.Path]::GetFileName('$([System.IO.Path]::GetDirectoryName('%(MileUniCrt_VcRuntimeObjectExtractList.Identity)'))'))Release\$([System.IO.Path]::GetFileName('%(MileUniCrt_VcRuntimeObjectExtractList.Identity)'))" />
+    <LIB
+      Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrtOutputPath)vcruntime.lib;$(MileUniCrtIntermediatePath)$([System.IO.Path]::GetFileName('$([System.IO.Path]::GetDirectoryName('%(MileUniCrt_VcRuntimeObjectExtractList.Identity)'))'))Release\$([System.IO.Path]::GetFileName('%(MileUniCrt_VcRuntimeObjectExtractList.Identity)'));"
+      OutputFile="$(MileUniCrtOutputPath)vcruntime.lib" />
+    <LibraryExtractListGenerator
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x86')"
+      TargetPlatform="$(PlatformShortName)"
+      InputLibraryPath="$(MileUniCrtVcRuntimeLibraryPath)msvcrt.lib"
+      FilterList="x86\chandler4gs.obj;x86\x86_exception_filter.obj;">
+      <Output TaskParameter="ExtractList" ItemName="MileUniCrt_VcRuntimeObjectWorkaroundExtractList"/>
+    </LibraryExtractListGenerator>
+    <LIB
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x86')"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrtVcRuntimeLibraryPath)msvcrt.lib;/EXTRACT:%(MileUniCrt_VcRuntimeObjectWorkaroundExtractList.Identity);"
+      OutputFile="$(MileUniCrtIntermediatePath)x86Release\$([System.IO.Path]::GetFileName('%(MileUniCrt_VcRuntimeObjectWorkaroundExtractList.Identity)'))" />
+    <LIB
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x86')"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrtOutputPath)vcruntime.lib;$(MileUniCrtIntermediatePath)x86Release\chandler4gs.obj;$(MileUniCrtIntermediatePath)x86Release\x86_exception_filter.obj;"
+      OutputFile="$(MileUniCrtOutputPath)vcruntime.lib" />
+    <Copy
+      Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtOutputPath)vcruntime.lib"
+      DestinationFiles="$(MileUniCrtOutputPath)libvcruntime.lib" />
+    <Copy
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' == 'true')"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtOutputPath)vcruntime.lib"
+      DestinationFiles="$(MileUniCrtOutputPath)vcruntimed.lib" />
+    <RemoveDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'x86')"
+      Directories="$(MileUniCrtIntermediatePath)x86Debug;" />
+    <MakeDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'x86')"
+      Directories="$(MileUniCrtIntermediatePath)x86Debug;"/>
+    <RemoveDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'x64')"
+      Directories="$(MileUniCrtIntermediatePath)amd64Debug;" />
+    <MakeDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'x64')"
+      Directories="$(MileUniCrtIntermediatePath)amd64Debug;"/>
+    <RemoveDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'ARM64')"
+      Directories="$(MileUniCrtIntermediatePath)arm64Debug;$(MileUniCrtIntermediatePath)arm64ecDebug;" />
+    <MakeDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'ARM64')"
+      Directories="$(MileUniCrtIntermediatePath)arm64Debug;$(MileUniCrtIntermediatePath)arm64ecDebug;"/>
+    <LibraryExtractListGenerator
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true')"
+      TargetPlatform="$(PlatformShortName)"
+      InputLibraryPath="$(MileUniCrtVcRuntimeLibraryPath)libvcruntimed.lib"
+      FilterList="$(MileUniCrt_VcRuntimeExtendedSource)">
+      <Output TaskParameter="ExtractList" ItemName="MileUniCrt_VcRuntimeDebugObjectExtractList"/>
+    </LibraryExtractListGenerator>
+    <LIB
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true')"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrtVcRuntimeLibraryPath)libvcruntimed.lib;/EXTRACT:%(MileUniCrt_VcRuntimeDebugObjectExtractList.Identity);"
+      OutputFile="$(MileUniCrtIntermediatePath)$([System.IO.Path]::GetFileName('$([System.IO.Path]::GetDirectoryName('%(MileUniCrt_VcRuntimeDebugObjectExtractList.Identity)'))'))Debug\$([System.IO.Path]::GetFileName('%(MileUniCrt_VcRuntimeDebugObjectExtractList.Identity)'))" />
+    <LIB
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true')"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrtOutputPath)vcruntimed.lib;$(MileUniCrtIntermediatePath)$([System.IO.Path]::GetFileName('$([System.IO.Path]::GetDirectoryName('%(MileUniCrt_VcRuntimeDebugObjectExtractList.Identity)'))'))Debug\$([System.IO.Path]::GetFileName('%(MileUniCrt_VcRuntimeDebugObjectExtractList.Identity)'));"
+      OutputFile="$(MileUniCrtOutputPath)vcruntimed.lib" />
+    <LibraryExtractListGenerator
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'x86')"
+      TargetPlatform="$(PlatformShortName)"
+      InputLibraryPath="$(MileUniCrtVcRuntimeLibraryPath)msvcrtd.lib"
+      FilterList="x86\chandler4gs.obj;x86\x86_exception_filter.obj;">
+      <Output TaskParameter="ExtractList" ItemName="MileUniCrt_VcRuntimeDebugObjectWorkaroundExtractList"/>
+    </LibraryExtractListGenerator>
+    <LIB
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'x86')"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrtVcRuntimeLibraryPath)msvcrtd.lib;/EXTRACT:%(MileUniCrt_VcRuntimeDebugObjectWorkaroundExtractList.Identity);"
+      OutputFile="$(MileUniCrtIntermediatePath)x86Debug\$([System.IO.Path]::GetFileName('%(MileUniCrt_VcRuntimeDebugObjectWorkaroundExtractList.Identity)'))" />
+    <LIB
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'x86')"
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrtOutputPath)vcruntime.lib;$(MileUniCrtIntermediatePath)x86Debug\chandler4gs.obj;$(MileUniCrtIntermediatePath)x86Debug\x86_exception_filter.obj;"
+      OutputFile="$(MileUniCrtOutputPath)vcruntime.lib" />
+    <Copy
+      Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtOutputPath)vcruntimed.lib"
+      DestinationFiles="$(MileUniCrtOutputPath)libvcruntimed.lib" />
   </Target>
 </Project>

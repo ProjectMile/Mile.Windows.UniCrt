@@ -62,3 +62,15 @@ extern "C" BOOL __cdecl __intrinsic_abnormal_termination()
 }
 
 #endif // defined _M_IX86
+
+#if defined _M_AMD64
+
+#include <eh.h>
+
+// Dummy stub for bypassing ARM64EC compilation.
+extern "C" void __MileUniCrtMakeCompilerGenerateThunks()
+{
+    ::__C_specific_handler(nullptr, nullptr, nullptr, nullptr);
+}
+
+#endif // defined _M_AMD64 || defined _M_ARM || defined _M_ARM64

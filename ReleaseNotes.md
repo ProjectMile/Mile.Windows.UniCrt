@@ -4,7 +4,7 @@
 
 - Provide the vcruntime140(d).dll and vcruntime140_1(d).dll to ucrtbase(d).dll
   wrapper which can make people build more smaller binaries. But it will cause
-  x64 binaries only support Windows 10 Build 19041 or later.
+  binaries only support Windows 10 Build 19041 or later.
 - Remove MileUniCrtEnableSimplifiedBase dependency for
   MileUniCrtDisableRuntimeDebuggingFeature because may users want to disable
   runtime debugging feature but with the standard Windows Universal C Runtime

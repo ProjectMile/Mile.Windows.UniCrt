@@ -1,5 +1,16 @@
 ﻿# Mile.Windows.UniCrt Release Notes
 
+**Mile.Windows.UniCrt 1.1.278.0**
+
+- Eliminate the debugging symbol not found warning when linking softmemtag.obj
+  which contains in the vcruntime140(d).dll and vcruntime140_1(d).dll to
+  ucrtbase(d).dll wrapper.
+- Fix symbol filtering issue in the vcruntime140(d).dll and
+  vcruntime140_1(d).dll to ucrtbase(d).dll wrapper generator.
+- Fix the debug target generator logic for the vcruntime140(d).dll and
+  vcruntime140_1(d).dll to ucrtbase(d).dll wrapper.
+- Revise documents.
+
 **Mile.Windows.UniCrt 1.1.274.0**
 
 - Provide the vcruntime140(d).dll and vcruntime140_1(d).dll to ucrtbase(d).dll

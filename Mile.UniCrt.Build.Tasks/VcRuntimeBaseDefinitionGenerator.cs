@@ -161,7 +161,7 @@ namespace Mile.UniCrt.Build.Tasks
                             {
                                 foreach (string Symbol in Category.Value)
                                 {
-                                    if (Symbol.Contains("_SetThrowImageBase") ||
+                                    if (Symbol.Contains("__telemetry_main_") ||
                                         Symbol.Contains("__vcrt_"))
                                     {
                                         continue;

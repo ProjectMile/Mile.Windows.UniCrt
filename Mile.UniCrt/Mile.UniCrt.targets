@@ -99,6 +99,21 @@
       OverwriteReadOnlyFiles="true"
       SourceFiles="$(MileUniCrtOutputPath)ucrtd.lib"
       DestinationFiles="$(MileUniCrtOutputPath)libucrtd.lib" />
+    <Copy
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'ARM64')"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtVcRuntimeLibraryPath)libvcruntime.arm64.pdb;$(MileUniCrtVcRuntimeLibraryPath)libvcruntimed.arm64.pdb;"
+      DestinationFolder="$(MileUniCrtOutputPath)" />
+    <Copy
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x64')"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtVcRuntimeLibraryPath)libvcruntime.amd64.pdb;$(MileUniCrtVcRuntimeLibraryPath)libvcruntimed.amd64.pdb;"
+      DestinationFolder="$(MileUniCrtOutputPath)" />
+    <Copy
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x86')"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtVcRuntimeLibraryPath)libvcruntime.i386.pdb;$(MileUniCrtVcRuntimeLibraryPath)libvcruntimed.i386.pdb;"
+      DestinationFolder="$(MileUniCrtOutputPath)" />
     <VcRuntimeBaseDefinitionGenerator
       Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
       BaseLibraryPath="$(MileUniCrtVcRuntimeLibraryPath)"

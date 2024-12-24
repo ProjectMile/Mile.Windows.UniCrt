@@ -251,8 +251,8 @@
       Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'x86')"
       SuppressStartupBanner="true"
       TargetMachine="$(MileUniCrtLibraryTargetMachine)"
-      Sources="$(MileUniCrtOutputPath)vcruntime.lib;$(MileUniCrtIntermediatePath)x86Debug\chandler4gs.obj;$(MileUniCrtIntermediatePath)x86Debug\x86_exception_filter.obj;"
-      OutputFile="$(MileUniCrtOutputPath)vcruntime.lib" />
+      Sources="$(MileUniCrtOutputPath)vcruntimed.lib;$(MileUniCrtIntermediatePath)x86Debug\chandler4gs.obj;$(MileUniCrtIntermediatePath)x86Debug\x86_exception_filter.obj;"
+      OutputFile="$(MileUniCrtOutputPath)vcruntimed.lib" />
     <Copy
       Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'"
       OverwriteReadOnlyFiles="true"

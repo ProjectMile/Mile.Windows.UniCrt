@@ -16,6 +16,7 @@
   </PropertyGroup>
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Platform.x86.props" />
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Platform.x64.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Platform.ARM.props" />
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Platform.ARM64.props" />
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Platform.ARM64EC.props" />
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Cpp.Default.props" />
@@ -33,6 +34,7 @@
       <ModuleDefinitionFile Condition="'$(Platform)'=='Win32'">Mile.UniCrt.Wrapper.x86.Release.def</ModuleDefinitionFile>
       <ModuleDefinitionFile Condition="('$(Platform)'=='x64') Or ('$(Platform)'=='ARM64EC')">Mile.UniCrt.Wrapper.x64.Release.def</ModuleDefinitionFile>
       <ModuleDefinitionFile Condition="'$(Platform)'=='ARM64'">Mile.UniCrt.Wrapper.ARM64.Release.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile Condition="'$(Platform)'=='ARM'">Mile.UniCrt.Wrapper.ARM.Release.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
   <PropertyGroup>

@@ -18,6 +18,7 @@
     <MileUniCrtOutputPath Condition="'$(MileUniCrtOutputPath)' == ''">$(IntDir)Mile.UniCrt\</MileUniCrtOutputPath>
     <MileUniCrtLibraryTargetMachine Condition="('$(MileUniCrtLibraryTargetMachine)' == '') and ('$(Platform)' == 'Win32')">MachineX86</MileUniCrtLibraryTargetMachine>
     <MileUniCrtLibraryTargetMachine Condition="('$(MileUniCrtLibraryTargetMachine)' == '') and ('$(Platform)' == 'x64')">MachineX64</MileUniCrtLibraryTargetMachine>
+    <MileUniCrtLibraryTargetMachine Condition="('$(MileUniCrtLibraryTargetMachine)' == '') and ('$(PlatformShortName)' == 'ARM')">MachineARM</MileUniCrtLibraryTargetMachine>
     <MileUniCrtLibraryTargetMachine Condition="('$(MileUniCrtLibraryTargetMachine)' == '') and ('$(PlatformShortName)' == 'ARM64')">MachineARM64X</MileUniCrtLibraryTargetMachine>
     <MileUniCrtEnableSimplifiedBase Condition="'$(MileUniCrtEnableSimplifiedBase)' == ''">true</MileUniCrtEnableSimplifiedBase>
     <MileUniCrtDisableRuntimeDebuggingFeature Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == ''">false</MileUniCrtDisableRuntimeDebuggingFeature>
@@ -27,6 +28,7 @@
     <LibraryPath>$(MileUniCrtOutputPath);$(LibraryPath)</LibraryPath>
     <VC_LibraryPath_x86 Condition=" '$(VC_LibraryPath_x86)' != ''">$(MileUniCrtOutputPath);$(VC_LibraryPath_x86)</VC_LibraryPath_x86>
     <VC_LibraryPath_x64 Condition=" '$(VC_LibraryPath_x64)' != ''">$(MileUniCrtOutputPath);$(VC_LibraryPath_x64)</VC_LibraryPath_x64>
+    <VC_LibraryPath_ARM Condition=" '$(VC_LibraryPath_ARM)' != ''">$(MileUniCrtOutputPath);$(VC_LibraryPath_ARM)</VC_LibraryPath_ARM>
     <VC_LibraryPath_ARM64 Condition=" '$(VC_LibraryPath_ARM64)' != ''">$(MileUniCrtOutputPath);$(VC_LibraryPath_ARM64)</VC_LibraryPath_ARM64>
   </PropertyGroup>
   <PropertyGroup>
@@ -38,6 +40,7 @@
     <MileUniCrt_VcRuntimeBaseDebugSource Condition="'$(PlatformShortName)' == 'ARM64'">/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBaseDebug.Arm64EC.def;/DEFARM64NATIVE:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBaseDebug.def;</MileUniCrt_VcRuntimeBaseDebugSource>
     <MileUniCrt_VcRuntimeExtendedSource Condition="'$(PlatformShortName)' == 'x64'">amd64\c11_atomic_support.obj;amd64\locks.obj;amd64\softmemtag.obj;amd64\telemetry.obj;amd64\winapi_thunks.obj;amd64\threads.obj;</MileUniCrt_VcRuntimeExtendedSource>
     <MileUniCrt_VcRuntimeExtendedSource Condition="'$(PlatformShortName)' == 'x86'">x86\c11_atomic_support.obj;x86\locks.obj;x86\telemetry.obj;x86\winapi_thunks.obj;x86\threads.obj;</MileUniCrt_VcRuntimeExtendedSource>
+    <MileUniCrt_VcRuntimeExtendedSource Condition="'$(PlatformShortName)' == 'ARM'">arm\c11_atomic_support.obj;arm\locks.obj;arm\telemetry.obj;arm\winapi_thunks.obj;arm\threads.obj;</MileUniCrt_VcRuntimeExtendedSource>
     <MileUniCrt_VcRuntimeExtendedSource Condition="'$(PlatformShortName)' == 'ARM64'">arm64\c11_atomic_support.obj;arm64\locks.obj;arm64\softmemtag.obj;arm64\telemetry.obj;arm64\winapi_thunks.obj;arm64\threads.obj;arm64ec\c11_atomic_support.obj;arm64ec\locks.obj;arm64ec\softmemtag.obj;arm64ec\telemetry.obj;arm64ec\winapi_thunks.obj;arm64ec\threads.obj;</MileUniCrt_VcRuntimeExtendedSource>
   </PropertyGroup>
   <UsingTask
@@ -105,6 +108,11 @@
       SourceFiles="$(MileUniCrtVcRuntimeLibraryPath)libvcruntime.arm64.pdb;$(MileUniCrtVcRuntimeLibraryPath)libvcruntimed.arm64.pdb;"
       DestinationFolder="$(MileUniCrtOutputPath)" />
     <Copy
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'ARM')"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtVcRuntimeLibraryPath)libvcruntime.arm.pdb;$(MileUniCrtVcRuntimeLibraryPath)libvcruntimed.arm.pdb;"
+      DestinationFolder="$(MileUniCrtOutputPath)" />
+    <Copy
       Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x64')"
       OverwriteReadOnlyFiles="true"
       SourceFiles="$(MileUniCrtVcRuntimeLibraryPath)libvcruntime.amd64.pdb;$(MileUniCrtVcRuntimeLibraryPath)libvcruntimed.amd64.pdb;"
@@ -143,6 +151,12 @@
     <MakeDir
       Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'x64')"
       Directories="$(MileUniCrtIntermediatePath)amd64Release;"/>
+    <RemoveDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'ARM')"
+      Directories="$(MileUniCrtIntermediatePath)armRelease;" />
+    <MakeDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'ARM')"
+      Directories="$(MileUniCrtIntermediatePath)armRelease;"/>
     <RemoveDir
       Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(PlatformShortName)' == 'ARM64')"
       Directories="$(MileUniCrtIntermediatePath)arm64Release;$(MileUniCrtIntermediatePath)arm64ecRelease;" />
@@ -209,6 +223,12 @@
     <MakeDir
       Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'x64')"
       Directories="$(MileUniCrtIntermediatePath)amd64Debug;"/>
+    <RemoveDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'ARM')"
+      Directories="$(MileUniCrtIntermediatePath)armDebug;" />
+    <MakeDir
+      Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'ARM')"
+      Directories="$(MileUniCrtIntermediatePath)armDebug;"/>
     <RemoveDir
       Condition="('$(MileUniCrtEnableVcRuntimeWrapper)' == 'true') and ('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(PlatformShortName)' == 'ARM64')"
       Directories="$(MileUniCrtIntermediatePath)arm64Debug;$(MileUniCrtIntermediatePath)arm64ecDebug;" />

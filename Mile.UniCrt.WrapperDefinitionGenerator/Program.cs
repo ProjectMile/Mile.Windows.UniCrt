@@ -49,7 +49,7 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
 
         static void Main(string[] args)
         {
-            string[] Platforms = ["arm64", "x64", "x86"];
+            string[] Platforms = ["arm", "arm64", "x64", "x86"];
 
             foreach (string Platform in Platforms)
             {

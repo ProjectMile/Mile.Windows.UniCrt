@@ -44,8 +44,8 @@
     TaskName="Mile.UniCrt.Build.Tasks.SimplifiedBaseDefinitionGenerator"
     AssemblyFile="$(MSBuildThisFileDirectory)Mile.UniCrt.Build.Tasks.dll"/>
   <UsingTask
-      TaskName="Mile.UniCrt.Build.Tasks.VcRuntimeBaseDefinitionGenerator"
-      AssemblyFile="$(MSBuildThisFileDirectory)Mile.UniCrt.Build.Tasks.dll"/>
+    TaskName="Mile.UniCrt.Build.Tasks.VcRuntimeBaseDefinitionGenerator"
+    AssemblyFile="$(MSBuildThisFileDirectory)Mile.UniCrt.Build.Tasks.dll"/>
   <UsingTask
     TaskName="Mile.UniCrt.Build.Tasks.LibraryExtractListGenerator"
     AssemblyFile="$(MSBuildThisFileDirectory)Mile.UniCrt.Build.Tasks.dll"/>

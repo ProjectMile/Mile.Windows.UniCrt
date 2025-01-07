@@ -13,6 +13,8 @@ applications.
 - Provide ARM64X and ARM64EC modes support for ARM64 targets.
 - Provide the Simplified Base support which can make people build their binaries
   which directly depends on ucrtbase.dll instead of api-ms-win-crt-*.dll.
+- Provide the Static Base support which can make people build their binaries
+  which links with the static Windows Universal C Runtime library.
 - Provide the disabling runtime debugging feature support which can make people
   build their debug binaries which directly depends on ucrtbase.dll instead of
   ucrtbased.dll.
@@ -27,6 +29,13 @@ If you don't want to use the simplified base, please set the following option.
 
 ```
 <MileUniCrtEnableSimplifiedBase>false</MileUniCrtEnableSimplifiedBase>
+```
+
+If you want to use the static base, please set the following option. The option
+won't work if the simplified base is enabled.
+
+```
+<MileUniCrtEnableStaticBase>true</MileUniCrtEnableStaticBase>
 ```
 
 If you want to make your debug configuration binary which directly depends on

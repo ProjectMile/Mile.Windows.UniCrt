@@ -82,6 +82,11 @@
       SourceFiles="$(MileUniCrtBaseLibraryPath)ucrt.lib"
       DestinationFiles="$(MileUniCrtOutputPath)ucrt.lib" />
     <Copy
+      Condition="('$(MileUniCrtEnableSimplifiedBase)' != 'true') and ('$(MileUniCrtEnableStaticBase)' == 'true')"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtBaseLibraryPath)libucrt.lib"
+      DestinationFiles="$(MileUniCrtOutputPath)ucrt.lib" />
+    <Copy
       OverwriteReadOnlyFiles="true"
       SourceFiles="$(MileUniCrtOutputPath)ucrt.lib"
       DestinationFiles="$(MileUniCrtOutputPath)libucrt.lib" />
@@ -94,6 +99,11 @@
       Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true'"
       OverwriteReadOnlyFiles="true"
       SourceFiles="$(MileUniCrtBaseLibraryPath)ucrtd.lib"
+      DestinationFiles="$(MileUniCrtOutputPath)ucrtd.lib" />
+    <Copy
+      Condition="('$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true') and ('$(MileUniCrtEnableSimplifiedBase)' != 'true') and ('$(MileUniCrtEnableStaticBase)' == 'true')"
+      OverwriteReadOnlyFiles="true"
+      SourceFiles="$(MileUniCrtBaseLibraryPath)libucrtd.lib"
       DestinationFiles="$(MileUniCrtOutputPath)ucrtd.lib" />
     <Copy
       OverwriteReadOnlyFiles="true"

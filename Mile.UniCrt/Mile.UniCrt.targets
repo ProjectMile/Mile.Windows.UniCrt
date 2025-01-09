@@ -53,8 +53,8 @@
     <ItemGroup Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == 'true'">
       <ClCompile Include="$(MSBuildThisFileDirectory)Mile.UniCrt.RuntimeDebuggingFeatureWrapper.cpp" />
     </ItemGroup>
-    <ItemGroup>
-      <ClCompile Include="$(MSBuildThisFileDirectory)Mile.UniCrt.OriginalVCRuntimeWrapper.cpp" />
+    <ItemGroup Condition="'$(MileUniCrtEnableVcRuntimeWrapper)' == 'true'">
+      <ClCompile Include="$(MSBuildThisFileDirectory)Mile.UniCrt.VcRuntimeWrapper.cpp" />
     </ItemGroup>
   </Target>
   <Target Name="MileUniCrtGenerateLibraries" BeforeTargets="BeforeClCompile">

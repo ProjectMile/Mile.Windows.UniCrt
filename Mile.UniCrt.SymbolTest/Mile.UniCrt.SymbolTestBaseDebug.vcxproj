@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{13C9267C-891F-4782-ABB7-3C76B3CC9B06}</ProjectGuid>
+    <RootNamespace>Mile.UniCrt.SymbolTestBaseDebug</RootNamespace>
+    <MileProjectType>DynamicLibrary</MileProjectType>
+    <MileProjectUseProjectProperties>true</MileProjectUseProjectProperties>
+    <MileProjectCompanyName>Project Mile</MileProjectCompanyName>
+    <MileProjectFileDescription>Mile.Windows.UniCrt Symbol Linking Test</MileProjectFileDescription>
+    <MileProjectInternalName>Mile.UniCrt.SymbolTestBaseDebug</MileProjectInternalName>
+    <MileProjectLegalCopyright>© Project Mile. All rights reserved.</MileProjectLegalCopyright>
+    <MileProjectOriginalFilename>Mile.UniCrt.SymbolTestBaseDebug.dll</MileProjectOriginalFilename>
+    <MileProjectProductName>Mile.Windows.UniCrt</MileProjectProductName>
+    <MileProjectVersion>1.1.$([System.DateTime]::Today.Subtract($([System.DateTime]::Parse('2024-03-21'))).TotalDays).0</MileProjectVersion>
+    <MileProjectVersionTag Condition="false">Alpha 1</MileProjectVersionTag>
+    <MileUniCrtDisableRuntimeDebuggingFeature>true</MileUniCrtDisableRuntimeDebuggingFeature>
+  </PropertyGroup>
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Platform.x86.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Platform.x64.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Platform.ARM64.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Platform.ARM64EC.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Cpp.Default.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Cpp.props" />
+  <PropertyGroup Condition="'$(Platform)'=='ARM64'">
+    <BuildAsX>true</BuildAsX>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <RuntimeLibrary Condition="'$(Configuration)' == 'Debug'">MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)' == 'Release'">MultiThreadedDebug</RuntimeLibrary>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>$(MileUniCrtIntermediatePath)Mile.UniCrt.SymbolTestBaseDebug.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile Condition="'$(Platform)'=='ARM64EC'">$(MileUniCrtIntermediatePath)Mile.UniCrt.SymbolTestBaseDebug.Arm64EC.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1426" Project="Mile.Project.Cpp.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\Mile.UniCrt\Mile.UniCrt.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)Mile.UniCrt.SymbolTest.targets" />
+</Project>

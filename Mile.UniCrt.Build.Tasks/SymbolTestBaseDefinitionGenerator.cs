@@ -58,7 +58,12 @@ namespace Mile.UniCrt.Build.Tasks
                                 {
                                     continue;
                                 }
-                                FinalSymbols.Add(Symbol);
+                                string FinalSymbol = Symbol;
+                                if (Symbol.Contains("@"))
+                                {
+                                    FinalSymbol = Symbol.Split('@')[0];
+                                }
+                                FinalSymbols.Add(FinalSymbol);
                             }
                         }
                     }
@@ -151,7 +156,12 @@ namespace Mile.UniCrt.Build.Tasks
                                 {
                                     continue;
                                 }
-                                FinalSymbols.Add(Symbol);
+                                string FinalSymbol = Symbol;
+                                if (Symbol.Contains("@"))
+                                {
+                                    FinalSymbol = Symbol.Split('@')[0];
+                                }
+                                FinalSymbols.Add(FinalSymbol);
                             }
                         }
                     }

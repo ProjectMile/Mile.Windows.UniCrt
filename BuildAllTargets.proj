@@ -81,5 +81,8 @@
       Targets="Restore;Build"
       StopOnFirstFailure="True"
       Properties="PreferredToolArchitecture=x64" />
+    <Exec 
+      WorkingDirectory="$(MSBuildThisFileDirectory)"
+      Command="7z a -r .\Output\Mile.Windows.UniCrt.Wrapper_1.1.$([System.DateTime]::Today.Subtract($([System.DateTime]::Parse('2024-03-21'))).TotalDays).0.zip .\Output\Binaries\Release\**\ucrtbase*.dll .\Output\Binaries\Release\**\ucrtbase*.pdb"/>
   </Target>
 </Project>

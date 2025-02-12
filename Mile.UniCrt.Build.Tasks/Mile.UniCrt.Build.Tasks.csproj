@@ -5,7 +5,7 @@
     <LangVersion>default</LangVersion>
     <Authors>Project Mile</Authors>
     <Copyright>© Project Mile. All rights reserved.</Copyright>
-    <Version>1.1.$([System.DateTime]::Today.Subtract($([System.DateTime]::Parse('2024-03-21'))).TotalDays).0</Version>
+    <Version>1.2.$([System.DateTime]::Today.Subtract($([System.DateTime]::Parse('2024-03-21'))).TotalDays).0</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,5 +1,26 @@
 ﻿# Mile.Windows.UniCrt Release Notes
 
+**Mile.Windows.UniCrt 1.2.328.0**
+
+- Provide the Static Base support which can make people build their binaries
+  which links with the static Windows Universal C Runtime library.
+- Update Mile.UniCrt.References.
+  - Add Windows 10 Build 14393 UCRT binaries as the reference baseline. (Thanks
+    to gailium119 for the arm64 binary.)
+  - Add Windows 10 Build 10240, 10586 and 15063 arm64 UCRT binaries as the
+    historic references. (Thanks to gailium119.)
+  - Move Windows 10 Build 10586.1000 and 16299 UCRT binaries as the historic
+    references.
+  - Add Notes\UniCrtNewSymbols.xlsx as the reference note.
+- Update Mile.Project.Helpers to 1.0.643.
+- Split the compile time linker test from Mile.UniCrt.Wrapper project to
+  Mile.UniCrt.SymbolTest project.
+- Rewrite Mile.UniCrt.Wrapper project.
+  - Move specific implement from Mile.UniCrt.OriginalVCRuntimeWrapper to
+    Mile.UniCrt.Wrapper for simplifying the Mile.Windows.UniCrt toolchain.
+  - Add UCRT OS mode symbols redirection support.
+  - Provide the redistribution binaries package.
+
 **Mile.Windows.UniCrt 1.1.278.0**
 
 - Eliminate the debugging symbol not found warning when linking softmemtag.obj

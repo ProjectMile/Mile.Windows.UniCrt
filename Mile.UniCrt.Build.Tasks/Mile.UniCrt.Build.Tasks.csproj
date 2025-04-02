@@ -9,9 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Framework" Version="17.12.6" />
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.12.6" />
-    <PackageReference Include="Mile.Project.Helpers" Version="1.0.632" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.13.9" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.13.9" />
+    <PackageReference Include="Mile.Project.Helpers" Version="1.0.643" />
   </ItemGroup>
 
   <Target Name="MileUniCrtBuildTasksAfterBuild" AfterTargets="Build">

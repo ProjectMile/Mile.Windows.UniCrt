@@ -19,3 +19,10 @@ extern "C" void __MileUniCrtMakeCompilerGenerateThunks()
 }
 
 #endif // _M_AMD64
+
+#ifdef _M_IX86
+#pragma comment(linker, "/alternatename:__CxxLongjmpUnwind@4=__CxxLongjmpUnwind")
+#pragma comment(linker, "/alternatename:_CxxThrowException@8=_CxxThrowException")
+#pragma comment(linker, "/alternatename:_seh_longjmp_unwind@4=_seh_longjmp_unwind")
+#pragma comment(linker, "/alternatename:_seh_longjmp_unwind4@4=_seh_longjmp_unwind4")
+#endif // _M_IX86

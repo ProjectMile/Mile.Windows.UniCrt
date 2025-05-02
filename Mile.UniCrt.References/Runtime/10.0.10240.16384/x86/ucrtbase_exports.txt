@@ -23,7 +23,7 @@ __CxxExceptionFilter
 __CxxFrameHandler
 __CxxFrameHandler2
 __CxxFrameHandler3
-__CxxLongjmpUnwind@4
+__CxxLongjmpUnwind
 __CxxQueryExceptionSize
 __CxxRegisterExceptionObject
 __CxxUnregisterExceptionObject
@@ -217,7 +217,7 @@ _ctime32_s
 _ctime64
 _ctime64_s
 _cwait
-_CxxThrowException@8
+_CxxThrowException
 _d_int
 _dclass
 _dexp
@@ -1832,8 +1832,8 @@ _searchenv
 _searchenv_s
 _seh_filter_dll
 _seh_filter_exe
-_seh_longjmp_unwind@4
-_seh_longjmp_unwind4@4
+_seh_longjmp_unwind
+_seh_longjmp_unwind4
 _set_abort_behavior
 _set_app_type
 _set_controlfp

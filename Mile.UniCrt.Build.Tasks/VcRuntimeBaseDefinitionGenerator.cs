@@ -43,7 +43,10 @@ namespace Mile.UniCrt.Build.Tasks
                                     {
                                         continue;
                                     }
-                                    Symbols.Add(Symbol);
+                                    Symbols.Add(
+                                        Symbol.Contains("@")
+                                        ? Symbol.Split('@')[0]
+                                        : Symbol);
                                 }
                             }
                         }
@@ -126,7 +129,10 @@ namespace Mile.UniCrt.Build.Tasks
                                     {
                                         continue;
                                     }
-                                    Symbols.Add(Symbol);
+                                    Symbols.Add(
+                                        Symbol.Contains("@")
+                                        ? Symbol.Split('@')[0]
+                                        : Symbol);
                                 }
                             }
                         }

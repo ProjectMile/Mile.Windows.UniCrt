@@ -8,7 +8,7 @@
  * MAINTAINER: MouriNaruto (Kenji.Mouri@outlook.com)
  */
 
-#if defined _M_AMD64
+#ifdef _M_AMD64
 
 #include <Windows.h>
 
@@ -18,4 +18,4 @@ extern "C" void __MileUniCrtMakeCompilerGenerateThunks()
     ::__C_specific_handler(nullptr, nullptr, nullptr, nullptr);
 }
 
-#endif // defined _M_AMD64 || defined _M_ARM || defined _M_ARM64
+#endif // _M_AMD64

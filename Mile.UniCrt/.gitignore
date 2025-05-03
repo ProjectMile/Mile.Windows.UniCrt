@@ -12,3 +12,8 @@
 ## Ignore Mile.UniCrt.Build.Tasks.dll which convenience for debugging.
 ## 
 Mile.UniCrt.Build.Tasks.dll
+
+##
+## Include pregenerated object files.
+## 
+!*.obj

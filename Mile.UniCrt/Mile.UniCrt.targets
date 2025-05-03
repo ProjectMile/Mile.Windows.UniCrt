@@ -32,6 +32,8 @@
   <PropertyGroup>
     <MileUniCrt_SimplifiedBaseSource>/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.SimplifiedBase.def;</MileUniCrt_SimplifiedBaseSource>
     <MileUniCrt_SimplifiedBaseSource Condition="'$(PlatformShortName)' == 'ARM64'">/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.SimplifiedBase.Arm64EC.def;/DEFARM64NATIVE:$(MileUniCrtIntermediatePath)Mile.UniCrt.SimplifiedBase.def;</MileUniCrt_SimplifiedBaseSource>
+    <MileUniCrt_SimplifiedBaseDebugSource>$(MileUniCrtOutputPath)ucrt.lib;$(MSBuildThisFileDirectory)Mile.UniCrt.RuntimeDebuggingFeatureWeakWrapper.$(PlatformShortName).obj;</MileUniCrt_SimplifiedBaseDebugSource>
+    <MileUniCrt_SimplifiedBaseDebugSource Condition="'$(PlatformShortName)' == 'ARM64'">$(MileUniCrtOutputPath)ucrt.lib;$(MSBuildThisFileDirectory)Mile.UniCrt.RuntimeDebuggingFeatureWeakWrapper.arm64.obj;$(MSBuildThisFileDirectory)Mile.UniCrt.RuntimeDebuggingFeatureWeakWrapper.arm64ec.obj;</MileUniCrt_SimplifiedBaseDebugSource>
     <MileUniCrt_VcRuntimeBaseSource>/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBase.def;</MileUniCrt_VcRuntimeBaseSource>
     <MileUniCrt_VcRuntimeBaseSource Condition="'$(PlatformShortName)' == 'ARM64'">/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBase.Arm64EC.def;/DEFARM64NATIVE:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBase.def;</MileUniCrt_VcRuntimeBaseSource>
     <MileUniCrt_VcRuntimeBaseDebugSource>/DEF:$(MileUniCrtIntermediatePath)Mile.UniCrt.VcRuntimeBaseDebug.def;</MileUniCrt_VcRuntimeBaseDebugSource>
@@ -90,11 +92,12 @@
       OverwriteReadOnlyFiles="true"
       SourceFiles="$(MileUniCrtOutputPath)ucrt.lib"
       DestinationFiles="$(MileUniCrtOutputPath)libucrt.lib" />
-    <Copy
+    <LIB
       Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' == 'true'"
-      OverwriteReadOnlyFiles="true"
-      SourceFiles="$(MileUniCrtOutputPath)ucrt.lib"
-      DestinationFiles="$(MileUniCrtOutputPath)ucrtd.lib" />
+      SuppressStartupBanner="true"
+      TargetMachine="$(MileUniCrtLibraryTargetMachine)"
+      Sources="$(MileUniCrt_SimplifiedBaseDebugSource)"
+      OutputFile="$(MileUniCrtOutputPath)ucrtd.lib" />
     <Copy
       Condition="'$(MileUniCrtDisableRuntimeDebuggingFeature)' != 'true'"
       OverwriteReadOnlyFiles="true"

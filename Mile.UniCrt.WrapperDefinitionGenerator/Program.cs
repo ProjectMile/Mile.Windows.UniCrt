@@ -7,6 +7,9 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
         private static readonly string ProjectRootPath =
             GitRepository.GetRootPath();
 
+        private static readonly string PackageRootPath =
+            ProjectRootPath + @"\Mile.UniCrt";
+
         private static readonly string ReferencesRootPath =
             ProjectRootPath + @"\Mile.UniCrt.References";
 
@@ -51,6 +54,38 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
         static void Main(string[] args)
         {
             string[] Platforms = ["arm64", "x64", "x86"];
+
+            (string Key, string Value)[] RuntimeDebuggingWeakSymbols =
+            {
+                ("_aligned_free_dbg", "_aligned_free"),
+                ("_aligned_malloc_dbg", "_aligned_malloc"),
+                ("_aligned_msize_dbg", "_aligned_msize"),
+                ("_aligned_offset_malloc_dbg", "_aligned_offset_malloc"),
+                ("_aligned_offset_realloc_dbg", "_aligned_offset_realloc"),
+                ("_aligned_offset_recalloc_dbg", "_aligned_offset_recalloc"),
+                ("_aligned_realloc_dbg", "_aligned_realloc"),
+                ("_aligned_recalloc_dbg", "_aligned_recalloc"),
+                ("_calloc_dbg", "calloc"),
+                ("_dupenv_s_dbg", "_dupenv_s"),
+                ("_expand_dbg", "_expand"),
+                ("_free_dbg", "free"),
+                ("_fullpath_dbg", "_fullpath"),
+                ("_getcwd_dbg", "_getcwd"),
+                ("_getdcwd_dbg", "_getdcwd"),
+                ("_malloc_dbg", "malloc"),
+                ("_mbsdup_dbg", "_mbsdup"),
+                ("_msize_dbg", "_msize"),
+                ("_realloc_dbg", "realloc"),
+                ("_recalloc_dbg", "_recalloc"),
+                ("_strdup_dbg", "_strdup"),
+                ("_tempnam_dbg", "_tempnam"),
+                ("_wcsdup_dbg", "_wcsdup"),
+                ("_wdupenv_s_dbg", "_wdupenv_s"),
+                ("_wfullpath_dbg", "_wfullpath"),
+                ("_wgetcwd_dbg", "_wgetcwd"),
+                ("_wgetdcwd_dbg", "_wgetdcwd"),
+                ("_wtempnam_dbg", "_wtempnam")
+            };
 
             foreach (string Platform in Platforms)
             {
@@ -125,6 +160,30 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
                         Platform),
                     string.Empty,
                     DebugSymbols);
+
+                File.WriteAllBytes(
+                    string.Format(
+                        @"{0}\Mile.UniCrt.{1}.{2}.obj",
+                        PackageRootPath,
+                        "RuntimeDebuggingFeatureWeakWrapper",
+                        Platform),
+                    WeakSymbolsObjectGenerator.CreateWeakSymbolObject(
+                        RuntimeDebuggingWeakSymbols,
+                        Platform,
+                        true));
+                if (Platform == "arm64")
+                {
+                    File.WriteAllBytes(
+                    string.Format(
+                        @"{0}\Mile.UniCrt.{1}.{2}.obj",
+                        PackageRootPath,
+                        "RuntimeDebuggingFeatureWeakWrapper",
+                        "arm64ec"),
+                    WeakSymbolsObjectGenerator.CreateWeakSymbolObject(
+                        RuntimeDebuggingWeakSymbols,
+                        "arm64ec",
+                        true));
+                }
             }
 
             Console.WriteLine(

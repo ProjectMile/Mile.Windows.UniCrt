@@ -105,13 +105,8 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
                         !Symbol.StartsWith("?") &&
                         !Symbol.StartsWith("$"))
                     {
-                        string FinalSymbol = Symbol;
-                        if (Symbol.Contains("@"))
-                        {
-                            FinalSymbol = Symbol.Split('@')[0];
-                        }
-                        ReleaseSymbols.Add(FinalSymbol);
-                        DebugSymbols.Add(FinalSymbol);
+                        ReleaseSymbols.Add(Symbol);
+                        DebugSymbols.Add(Symbol);
                     }
                 }
 

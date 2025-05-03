@@ -365,8 +365,27 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
             Stream.Write(Bytes, 0, Bytes.Length);
         }
 
+        private static string ToFinalSymbolName(
+            string Symbol,
+            string Platform)
+        {
+            if (Platform == "x86")
+            {
+                return "_" + Symbol;
+            }
+            else if (Platform == "arm64ec")
+            {
+                return "#" + Symbol;
+            }
+            else
+            {
+                return Symbol;
+            }
+        }
+
         public static byte[] CreateWeakSymbolObject(
-            SortedDictionary<string, string> WeakSymbols)
+            SortedDictionary<string, string> WeakSymbols,
+            string Platform)
         {
             MemoryStream ObjectStream = new MemoryStream();
 
@@ -412,15 +431,20 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
             int StringPoolIndex = sizeof(uint);
             foreach (KeyValuePair<string, string> WeakSymbol in WeakSymbols)
             {
+                string FinalAliasSymbol =
+                    ToFinalSymbolName(WeakSymbol.Key, Platform);
+                string FinalTargetSymbol =
+                    ToFinalSymbolName(WeakSymbol.Value, Platform);
+
                 ImageSymbol TargetSymbol = new ImageSymbol();
-                if (WeakSymbol.Value.Length > 8)
+                if (FinalTargetSymbol.Length > 8)
                 {
                     TargetSymbol.LongName = StringPoolIndex;
-                    StringPoolIndex += WeakSymbol.Value.Length + 1;
+                    StringPoolIndex += FinalTargetSymbol.Length + 1;
                 }
                 else
                 {
-                    TargetSymbol.ShortName = WeakSymbol.Value;
+                    TargetSymbol.ShortName = FinalTargetSymbol;
                 }  
                 TargetSymbol.Value = 0;
                 TargetSymbol.SectionNumber = IMAGE_SYM_UNDEFINED;
@@ -430,14 +454,14 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
                 WriteToStream(ObjectStream, StructureToBytes(TargetSymbol));
 
                 ImageSymbol AliasSymbol = new ImageSymbol();
-                if (WeakSymbol.Key.Length > 8)
+                if (FinalAliasSymbol.Length > 8)
                 {
                     AliasSymbol.LongName = StringPoolIndex;
-                    StringPoolIndex += WeakSymbol.Key.Length + 1;
+                    StringPoolIndex += FinalAliasSymbol.Length + 1;
                 }
                 else
                 {
-                    AliasSymbol.ShortName = WeakSymbol.Key;
+                    AliasSymbol.ShortName = FinalAliasSymbol;
                 }
                 AliasSymbol.Value = 0;
                 AliasSymbol.SectionNumber = IMAGE_SYM_UNDEFINED;
@@ -458,15 +482,20 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
             WriteToStream(ObjectStream, BitConverter.GetBytes(StringPoolIndex));
             foreach (KeyValuePair<string, string> WeakSymbol in WeakSymbols)
             {
-                if (WeakSymbol.Value.Length > 8)
+                string FinalAliasSymbol =
+                    ToFinalSymbolName(WeakSymbol.Key, Platform);
+                string FinalTargetSymbol =
+                    ToFinalSymbolName(WeakSymbol.Value, Platform);
+
+                if (FinalTargetSymbol.Length > 8)
                 {
-                    byte[] Encoded = Encoding.UTF8.GetBytes(WeakSymbol.Value);
+                    byte[] Encoded = Encoding.UTF8.GetBytes(FinalTargetSymbol);
                     WriteToStream(ObjectStream, Encoded);
                     ObjectStream.WriteByte(0);
                 }
-                if (WeakSymbol.Key.Length > 8)
+                if (FinalAliasSymbol.Length > 8)
                 {
-                    byte[] Encoded = Encoding.UTF8.GetBytes(WeakSymbol.Key);
+                    byte[] Encoded = Encoding.UTF8.GetBytes(FinalAliasSymbol);
                     WriteToStream(ObjectStream, Encoded);
                     ObjectStream.WriteByte(0);
                 }
@@ -479,8 +508,8 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
         {
             SortedDictionary<string, string> WeakSymbols =
                 new SortedDictionary<string, string>();
-            WeakSymbols.Add("#access", "#_access");
-            byte[] Bytes = CreateWeakSymbolObject(WeakSymbols);
+            WeakSymbols.Add("access", "_access");
+            byte[] Bytes = CreateWeakSymbolObject(WeakSymbols, "arm64ec");
 
             File.WriteAllBytes("WeakSymbolItem.bin", Bytes);
 

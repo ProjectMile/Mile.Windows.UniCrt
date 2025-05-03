@@ -172,6 +172,8 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
         }
 
         private const ushort IMAGE_FILE_MACHINE_UNKNOWN = 0x0000;
+        private const ushort IMAGE_FILE_MACHINE_ARM64 = 0xAA64;
+        private const ushort IMAGE_FILE_MACHINE_ARM64EC = 0xA641;
 
         /// <summary>
         /// At the beginning of an object file, or immediately after the
@@ -365,27 +367,9 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
             Stream.Write(Bytes, 0, Bytes.Length);
         }
 
-        private static string ToFinalSymbolName(
-            string Symbol,
-            string Platform)
-        {
-            if (Platform == "x86")
-            {
-                return "_" + Symbol;
-            }
-            else if (Platform == "arm64ec")
-            {
-                return "#" + Symbol;
-            }
-            else
-            {
-                return Symbol;
-            }
-        }
-
-        public static byte[] CreateWeakSymbolObject(
+        private static byte[] CreateWeakSymbolObject(
             SortedDictionary<string, string> WeakSymbols,
-            string Platform)
+            ushort Machine)
         {
             MemoryStream ObjectStream = new MemoryStream();
 
@@ -396,7 +380,7 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
             SectionHeader.Characteristics =
                 IMAGE_SCN_LNK_INFO | IMAGE_SCN_LNK_REMOVE;
             ImageFileHeader FileHeader = new ImageFileHeader();
-            FileHeader.Machine = IMAGE_FILE_MACHINE_UNKNOWN;
+            FileHeader.Machine = Machine;
             FileHeader.NumberOfSections = 1;
             FileHeader.TimeDateStamp = Convert.ToInt32(
                 new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds());
@@ -431,20 +415,15 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
             int StringPoolIndex = sizeof(uint);
             foreach (KeyValuePair<string, string> WeakSymbol in WeakSymbols)
             {
-                string FinalAliasSymbol =
-                    ToFinalSymbolName(WeakSymbol.Key, Platform);
-                string FinalTargetSymbol =
-                    ToFinalSymbolName(WeakSymbol.Value, Platform);
-
                 ImageSymbol TargetSymbol = new ImageSymbol();
-                if (FinalTargetSymbol.Length > 8)
+                if (WeakSymbol.Value.Length > 8)
                 {
                     TargetSymbol.LongName = StringPoolIndex;
-                    StringPoolIndex += FinalTargetSymbol.Length + 1;
+                    StringPoolIndex += WeakSymbol.Value.Length + 1;
                 }
                 else
                 {
-                    TargetSymbol.ShortName = FinalTargetSymbol;
+                    TargetSymbol.ShortName = WeakSymbol.Value;
                 }  
                 TargetSymbol.Value = 0;
                 TargetSymbol.SectionNumber = IMAGE_SYM_UNDEFINED;
@@ -454,14 +433,14 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
                 WriteToStream(ObjectStream, StructureToBytes(TargetSymbol));
 
                 ImageSymbol AliasSymbol = new ImageSymbol();
-                if (FinalAliasSymbol.Length > 8)
+                if (WeakSymbol.Key.Length > 8)
                 {
                     AliasSymbol.LongName = StringPoolIndex;
-                    StringPoolIndex += FinalAliasSymbol.Length + 1;
+                    StringPoolIndex += WeakSymbol.Key.Length + 1;
                 }
                 else
                 {
-                    AliasSymbol.ShortName = FinalAliasSymbol;
+                    AliasSymbol.ShortName = WeakSymbol.Key;
                 }
                 AliasSymbol.Value = 0;
                 AliasSymbol.SectionNumber = IMAGE_SYM_UNDEFINED;
@@ -482,20 +461,15 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
             WriteToStream(ObjectStream, BitConverter.GetBytes(StringPoolIndex));
             foreach (KeyValuePair<string, string> WeakSymbol in WeakSymbols)
             {
-                string FinalAliasSymbol =
-                    ToFinalSymbolName(WeakSymbol.Key, Platform);
-                string FinalTargetSymbol =
-                    ToFinalSymbolName(WeakSymbol.Value, Platform);
-
-                if (FinalTargetSymbol.Length > 8)
+                if (WeakSymbol.Value.Length > 8)
                 {
-                    byte[] Encoded = Encoding.UTF8.GetBytes(FinalTargetSymbol);
+                    byte[] Encoded = Encoding.UTF8.GetBytes(WeakSymbol.Value);
                     WriteToStream(ObjectStream, Encoded);
                     ObjectStream.WriteByte(0);
                 }
-                if (FinalAliasSymbol.Length > 8)
+                if (WeakSymbol.Key.Length > 8)
                 {
-                    byte[] Encoded = Encoding.UTF8.GetBytes(FinalAliasSymbol);
+                    byte[] Encoded = Encoding.UTF8.GetBytes(WeakSymbol.Key);
                     WriteToStream(ObjectStream, Encoded);
                     ObjectStream.WriteByte(0);
                 }
@@ -504,16 +478,69 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
             return ObjectStream.ToArray();
         }
 
-        public static void Test()
+        public static byte[] CreateWeakSymbolObject(
+            (string Key, string Value)[] WeakSymbols,
+            string Platform,
+            bool GenerateImportTableSymbols)
         {
-            SortedDictionary<string, string> WeakSymbols =
+            SortedDictionary<string, string> FinalWeakSymbols =
                 new SortedDictionary<string, string>();
-            WeakSymbols.Add("access", "_access");
-            byte[] Bytes = CreateWeakSymbolObject(WeakSymbols, "arm64ec");
+            foreach (var WeakSymbol in WeakSymbols)
+            {
+                if (Platform == "x86")
+                {
+                    FinalWeakSymbols.Add(
+                        "_" + WeakSymbol.Key,
+                        "_" + WeakSymbol.Value);
+                }
+                else if (Platform == "arm64ec")
+                {
+                    FinalWeakSymbols.Add(
+                        "#" + WeakSymbol.Key,
+                        "#" + WeakSymbol.Value);
+                }
+                else
+                {
+                    FinalWeakSymbols.Add(
+                        WeakSymbol.Key,
+                        WeakSymbol.Value);
+                }
 
-            File.WriteAllBytes("WeakSymbolItem.bin", Bytes);
+                if (GenerateImportTableSymbols)
+                {
+                    if (Platform == "x86")
+                    {
+                        FinalWeakSymbols.Add(
+                            "__imp_" + "_" + WeakSymbol.Key,
+                            "__imp_" + "_" + WeakSymbol.Value);
+                    }
+                    else
+                    {
+                        FinalWeakSymbols.Add(
+                            "__imp_" + WeakSymbol.Key,
+                            "__imp_" + WeakSymbol.Value);
+                    }
+                }
+            }
 
-            Console.ReadKey();
+            if (Platform == "arm64")
+            {
+                return CreateWeakSymbolObject(
+                    FinalWeakSymbols,
+                    IMAGE_FILE_MACHINE_ARM64);
+            }
+            else if (Platform == "arm64ec")
+            {
+                return CreateWeakSymbolObject(
+                    FinalWeakSymbols,
+                    IMAGE_FILE_MACHINE_ARM64EC);
+            }
+            else
+            {
+                return CreateWeakSymbolObject(
+                    FinalWeakSymbols,
+                    IMAGE_FILE_MACHINE_UNKNOWN);
+            }
         }
     }
 }

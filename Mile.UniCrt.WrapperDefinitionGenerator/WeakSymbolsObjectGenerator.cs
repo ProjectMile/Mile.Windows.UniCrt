@@ -382,8 +382,8 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
             ImageFileHeader FileHeader = new ImageFileHeader();
             FileHeader.Machine = Machine;
             FileHeader.NumberOfSections = 1;
-            FileHeader.TimeDateStamp = Convert.ToInt32(
-                new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds());
+            FileHeader.TimeDateStamp = Convert.ToInt32( new DateTimeOffset(
+                2024, 03, 21, 0, 0, 0, TimeSpan.Zero).ToUnixTimeSeconds());
             FileHeader.PointerToSymbolTable = Convert.ToUInt32(
                 Marshal.SizeOf(FileHeader) + Marshal.SizeOf(SectionHeader));
             FileHeader.NumberOfSymbols = Convert.ToUInt32(

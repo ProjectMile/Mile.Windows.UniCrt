@@ -43,10 +43,11 @@ namespace Mile.UniCrt.Build.Tasks
                                     {
                                         continue;
                                     }
-                                    Symbols.Add(
-                                        Symbol.Contains("@")
-                                        ? Symbol.Split('@')[0]
-                                        : Symbol);
+                                    // Skip special symbols for the x86-32 target.
+                                    if (!Symbol.Contains("@"))
+                                    {
+                                        Symbols.Add(Symbol);
+                                    }
                                 }
                             }
                         }
@@ -129,10 +130,11 @@ namespace Mile.UniCrt.Build.Tasks
                                     {
                                         continue;
                                     }
-                                    Symbols.Add(
-                                        Symbol.Contains("@")
-                                        ? Symbol.Split('@')[0]
-                                        : Symbol);
+                                    // Skip special symbols for the x86-32 target.
+                                    if (!Symbol.Contains("@"))
+                                    {
+                                        Symbols.Add(Symbol);
+                                    }
                                 }
                             }
                         }

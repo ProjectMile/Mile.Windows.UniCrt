@@ -1,5 +1,10 @@
 ﻿# Mile.Windows.UniCrt Release Notes
 
+**Mile.Windows.UniCrt 1.2.410.0**
+
+- Fix the missing symbols issue at runtime for the x86-32 target 
+  MileUniCrtEnableVcRuntimeWrapper mode. (Thanks to yzytom.)
+
 **Mile.Windows.UniCrt 1.2.328.0**
 
 - Provide the Static Base support which can make people build their binaries

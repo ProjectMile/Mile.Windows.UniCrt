@@ -15,12 +15,12 @@
     <MileProjectVersionTag Condition="false">Alpha 1</MileProjectVersionTag>
     <MileUniCrtDisableRuntimeDebuggingFeature>true</MileUniCrtDisableRuntimeDebuggingFeature>
   </PropertyGroup>
-  <Import Sdk="Mile.Project.Configurations" Version="1.0.1766" Project="Mile.Project.Platform.x86.props" />
-  <Import Sdk="Mile.Project.Configurations" Version="1.0.1766" Project="Mile.Project.Platform.x64.props" />
-  <Import Sdk="Mile.Project.Configurations" Version="1.0.1766" Project="Mile.Project.Platform.ARM64.props" />
-  <Import Sdk="Mile.Project.Configurations" Version="1.0.1766" Project="Mile.Project.Platform.ARM64EC.props" />
-  <Import Sdk="Mile.Project.Configurations" Version="1.0.1766" Project="Mile.Project.Cpp.Default.props" />
-  <Import Sdk="Mile.Project.Configurations" Version="1.0.1766" Project="Mile.Project.Cpp.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1768" Project="Mile.Project.Platform.x86.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1768" Project="Mile.Project.Platform.x64.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1768" Project="Mile.Project.Platform.ARM64.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1768" Project="Mile.Project.Platform.ARM64EC.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1768" Project="Mile.Project.Cpp.Default.props" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1768" Project="Mile.Project.Cpp.props" />
   <PropertyGroup Condition="'$(Platform)'=='ARM64'">
     <BuildAsX>true</BuildAsX>
   </PropertyGroup>
@@ -35,7 +35,7 @@
       <ModuleDefinitionFile Condition="'$(Platform)'=='ARM64EC'">$(MileUniCrtIntermediatePath)Mile.UniCrt.SymbolTestBaseDebug.Arm64EC.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
-  <Import Sdk="Mile.Project.Configurations" Version="1.0.1766" Project="Mile.Project.Cpp.targets" />
+  <Import Sdk="Mile.Project.Configurations" Version="1.0.1768" Project="Mile.Project.Cpp.targets" />
   <Import Project="$(MSBuildThisFileDirectory)..\Mile.UniCrt\Mile.UniCrt.targets" />
   <Import Project="$(MSBuildThisFileDirectory)Mile.UniCrt.SymbolTest.targets" />
 </Project>

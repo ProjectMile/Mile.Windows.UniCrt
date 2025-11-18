@@ -1,0 +1,35 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM64" />
+    <Platform Name="ARM64EC" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Mile.UniCrt.SymbolTest/">
+    <File Path="Mile.UniCrt.SymbolTest/Mile.UniCrt.SymbolTest.targets" />
+    <Project Path="Mile.UniCrt.SymbolTest/Mile.UniCrt.SymbolTestBase.vcxproj" Id="8230e340-bd34-4fe0-869c-8ad50eba2bb2">
+      <Build Solution="*|Any CPU" Project="false" />
+    </Project>
+    <Project Path="Mile.UniCrt.SymbolTest/Mile.UniCrt.SymbolTestBaseDebug.vcxproj" Id="13c9267c-891f-4782-abb7-3c76b3cc9b06">
+      <Build Solution="*|Any CPU" Project="false" />
+    </Project>
+  </Folder>
+  <Folder Name="/Mile.UniCrt.Wrapper/">
+    <Project Path="Mile.UniCrt.Wrapper/Mile.UniCrt.Wrapper.vcxproj" Id="9913cf7e-2384-49e9-b47c-d568ed556633">
+      <Build Solution="*|Any CPU" Project="false" />
+    </Project>
+    <Project Path="Mile.UniCrt.Wrapper/Mile.UniCrt.WrapperDebug.vcxproj" Id="d574f328-06da-47ac-9b03-ee01d22c070b">
+      <Build Solution="*|Any CPU" Project="false" />
+    </Project>
+  </Folder>
+  <Project Path="Mile.UniCrt.Build.Tasks/Mile.UniCrt.Build.Tasks.csproj">
+    <Build Solution="*|ARM64" Project="false" />
+    <Build Solution="*|ARM64EC" Project="false" />
+    <Build Solution="*|x64" Project="false" />
+    <Build Solution="*|x86" Project="false" />
+  </Project>
+  <Project Path="Mile.UniCrt.SimplifiedDebugExtension/Mile.UniCrt.SimplifiedDebugExtension.vcxproj" Id="b6555c53-7127-4607-8451-93e3c21c91bf">
+    <Build Solution="*|Any CPU" Project="false" />
+  </Project>
+</Solution>

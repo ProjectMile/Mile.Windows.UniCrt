@@ -3,7 +3,7 @@
   DefaultTargets="BuildTools;Restore;Build;Packaging"
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SolutionPath>$(MSBuildThisFileDirectory)Mile.UniCrt.sln</SolutionPath>
+    <SolutionPath>$(MSBuildThisFileDirectory)Mile.UniCrt.slnx</SolutionPath>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionPath)">
@@ -32,7 +32,7 @@
   </ItemGroup>
   <Target Name="BuildTools" >
     <MSBuild
-      Projects="$(MSBuildThisFileDirectory)Mile.UniCrt.sln"
+      Projects="$(MSBuildThisFileDirectory)Mile.UniCrt.slnx"
       Targets="Restore;Build"
       StopOnFirstFailure="True"
       Properties="PreferredToolArchitecture=x64;Configuration=Release;Platform=Any CPU" />

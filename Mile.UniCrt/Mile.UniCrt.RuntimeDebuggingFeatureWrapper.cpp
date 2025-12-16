@@ -1,9 +1,9 @@
 ﻿/*
- * PROJECT:   Mouri Internal Library Essentials
- * FILE:      Mile.UniCrt.RuntimeDebuggingFeatureWrapper.cpp
- * PURPOSE:   Implementation for Mile.UniCrt.RuntimeDebuggingFeatureWrapper
+ * PROJECT:    Mouri Internal Library Essentials
+ * FILE:       Mile.UniCrt.RuntimeDebuggingFeatureWrapper.cpp
+ * PURPOSE:    Implementation for Mile.UniCrt.RuntimeDebuggingFeatureWrapper
  *
- * LICENSE:   The MIT License
+ * LICENSE:    The MIT License
  *
  * MAINTAINER: MouriNaruto (Kenji.Mouri@outlook.com)
  */

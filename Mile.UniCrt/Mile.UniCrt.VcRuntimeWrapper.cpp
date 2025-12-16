@@ -1,9 +1,9 @@
 ﻿/*
- * PROJECT:   Mouri Internal Library Essentials
- * FILE:      Mile.UniCrt.VcRuntimeWrapper.cpp
- * PURPOSE:   Implementation for Mile.UniCrt.VcRuntimeWrapper
+ * PROJECT:    Mouri Internal Library Essentials
+ * FILE:       Mile.UniCrt.VcRuntimeWrapper.cpp
+ * PURPOSE:    Implementation for Mile.UniCrt.VcRuntimeWrapper
  *
- * LICENSE:   The MIT License
+ * LICENSE:    The MIT License
  *
  * MAINTAINER: MouriNaruto (Kenji.Mouri@outlook.com)
  */

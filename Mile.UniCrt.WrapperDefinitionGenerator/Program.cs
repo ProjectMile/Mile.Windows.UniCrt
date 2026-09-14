@@ -1,11 +1,11 @@
-﻿using Mile.Project.Helpers;
+﻿using Mile.DotNet.Helpers;
+using Mile.UniCrt.Build.Tasks;
 
 namespace Mile.UniCrt.WrapperDefinitionGenerator
 {
     internal class Program
     {
-        private static readonly string ProjectRootPath =
-            GitRepository.GetRootPath();
+        private static readonly string ProjectRootPath = Git.GetRootPath();
 
         private static readonly string PackageRootPath =
             ProjectRootPath + @"\Mile.UniCrt";
@@ -48,7 +48,7 @@ namespace Mile.UniCrt.WrapperDefinitionGenerator
                 Content += string.Format("{0}\r\n", Symbol);
             }
 
-            FileUtilities.SaveTextToFileAsUtf8Bom(OutputFilePath, Content);
+            Text.SaveTextToFileAsUtf8WithBom(OutputFilePath, Content);
         }
 
         static void Main(string[] args)

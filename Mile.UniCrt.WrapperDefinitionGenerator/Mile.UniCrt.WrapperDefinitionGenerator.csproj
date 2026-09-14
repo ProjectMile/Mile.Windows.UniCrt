@@ -5,10 +5,16 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <MileDotNetHelpersEnableGitHelpers>true</MileDotNetHelpersEnableGitHelpers>
+    <MileDotNetHelpersEnableTextHelpers>true</MileDotNetHelpersEnableTextHelpers>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mile.Project.Helpers" Version="1.0.975" />
+    <PackageReference Include="Mile.DotNet.Helpers" Version="1.0.71" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)..\Mile.UniCrt.Build.Tasks\ImageArchive.cs" />
   </ItemGroup>
 
 </Project>

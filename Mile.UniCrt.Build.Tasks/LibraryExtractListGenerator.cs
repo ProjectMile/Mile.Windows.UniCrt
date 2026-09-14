@@ -1,6 +1,5 @@
 ﻿using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using Mile.Project.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 
